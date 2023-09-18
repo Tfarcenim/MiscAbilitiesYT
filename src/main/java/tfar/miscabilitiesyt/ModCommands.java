@@ -39,6 +39,11 @@ public class ModCommands {
                         .then(Commands.argument("player", EntityArgument.entities())
                                 .then(Commands.argument("active", BoolArgumentType.bool())
                                         .executes(ModCommands::disableHostiles))));
+        dispatcher.register(
+                Commands.literal("telekinesis")
+                        .then(Commands.argument("player", EntityArgument.entities())
+                                .then(Commands.argument("active", BoolArgumentType.bool())
+                                        .executes(ModCommands::activatetelekinesis))));
     }
 
     public static int handleWater(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
@@ -88,6 +93,19 @@ public class ModCommands {
 
         ModAbilities modAbilities = ModAbilities.getFromPlayerSideSafe(player);
         modAbilities.disableHostiles = active;
+        modAbilities.saveToPlayer(player);
+
+        return 1;
+    }
+
+    public static int activatetelekinesis(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        Entity entity = EntityArgument.getEntity(ctx,"player");
+        boolean active = BoolArgumentType.getBool(ctx,"active");
+
+        Player player = (Player) entity;
+
+        ModAbilities modAbilities = ModAbilities.getFromPlayerSideSafe(player);
+        modAbilities.telekinesis = active;
         modAbilities.saveToPlayer(player);
 
         return 1;

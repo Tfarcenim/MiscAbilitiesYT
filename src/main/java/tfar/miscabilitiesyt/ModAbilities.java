@@ -5,14 +5,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import tfar.miscabilitiesyt.network.NetworkHelper;
 
-import java.lang.reflect.Field;
-
 public class ModAbilities {
 
     public boolean waterwalk;
     public boolean lavawalk;
     public boolean vision;
     public boolean disableHostiles;
+    public boolean telekinesis;
 
     public static ModAbilities readFromNetwork(FriendlyByteBuf buf) {
         ModAbilities modAbilities = NetworkHelper.deserialize(buf, ModAbilities.class);
@@ -29,6 +28,7 @@ public class ModAbilities {
         modAbilities.lavawalk = tag.getBoolean("lavawalk");
         modAbilities.vision = tag.getBoolean("vision");
         modAbilities.disableHostiles = tag.getBoolean("disableHostiles");
+        modAbilities.telekinesis = tag.getBoolean("telekinesis");
         return modAbilities;
     }
 
@@ -38,6 +38,7 @@ public class ModAbilities {
         tag.putBoolean("lavawalk",lavawalk);
         tag.putBoolean("vision",vision);
         tag.putBoolean("disableHostiles",disableHostiles);
+        tag.putBoolean("telekinesis",telekinesis);
         return tag;
     }
 
